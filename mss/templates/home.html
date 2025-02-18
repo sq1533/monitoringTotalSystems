@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" >
+    <script src="https://unpkg.com/htmx.org@1.9.10"></script>
+</head>
+<!--container text background-->
+<body id="backGround" class="container max-w-xl mx-auto bg-white">
+    <div class="grid grid-cols-1">
+        <button id="styleSwich" class="w-20 h-8 text-white text-center rounded-full duration-500 bg-blue-500">
+            <i id="modeIcon" class="material-symbols-outlined" style="font-size:32px;">wb_sunny</i>
+        </button>    
+        <form class="col-start-2" hx-post="/allCheck" hx-target="#allResults" hx-swap="innerHTML" hx-boost="true">
+            <button class="px-2 py-1 rounded-lg bg-green-300 font-bold text-black hover:bg-green-500" type="submit" name="check" value="특이사항 없음">특이사항 없음 일괄처리</button>
+            <div class="hidden" id="allResults"></div>
+        </form>
+    </div>
+    <div id="bwGround" class="grid grid-cols-1 font-sans leading-normal space-y-3 bg-white">
+        <div id="alarm0Box" class="rounded-lg ring-2 ring-offset-2 ring-green-600 text-black">
+            <div class="py-2 px-4 text-sm rounded-lg" hx-get="/alarm_0" hx-trigger="load, every 2s"></div>
+        </div>
+        <div id="alarm1Box" class="rounded-lg ring-2 ring-offset-2 ring-green-600 text-black">
+            <div class="py-2 px-4 text-sm rounded-lg" hx-get="/alarm_1" hx-trigger="load, every 2s"></div>
+        </div>
+        <div id="alarm2Box" class="rounded-lg ring-2 ring-offset-2 ring-green-600 text-black">
+            <div class="py-2 px-4 text-sm rounded-lg" hx-get="/alarm_2" hx-trigger="load, every 2s"></div>
+        </div>
+        <div id="alarm3Box" class="rounded-lg ring-2 ring-offset-2 ring-green-600 text-black">
+            <div class="py-2 px-4 text-sm rounded-lg" hx-get="/alarm_3" hx-trigger="load, every 2s"></div>
+        </div>
+        <div id="alarm4Box" class="rounded-lg ring-2 ring-offset-2 ring-green-600 text-black">
+            <div class="py-2 px-4 text-sm rounded-lg" hx-get="/alarm_4" hx-trigger="load, every 2s"></div>
+        </div>
+        <div id="alarm5Box" class="rounded-lg ring-2 ring-offset-2 ring-green-600 text-black">
+            <div class="py-2 px-4 text-sm rounded-lg" hx-get="/alarm_5" hx-trigger="load, every 2s"></div>
+        </div>
+        <div id="alarm6Box" class="rounded-lg ring-2 ring-offset-2 ring-green-600 text-black">
+            <div class="py-2 px-4 text-sm rounded-lg" hx-get="/alarm_6" hx-trigger="load, every 2s"></div>
+        </div>
+        <div id="alarm7Box" class="rounded-lg ring-2 ring-offset-2 ring-green-600 text-black">
+            <div class="py-2 px-4 text-sm rounded-lg" hx-get="/alarm_7" hx-trigger="load, every 2s"></div>
+        </div>
+        <div id="alarm8Box" class="rounded-lg ring-2 ring-offset-2 ring-green-600 text-black">
+            <div class="py-2 px-4 text-sm rounded-lg" hx-get="/alarm_8" hx-trigger="load, every 2s"></div>
+        </div>
+        <div id="alarm9Box" class="rounded-lg ring-2 ring-offset-2 ring-green-600 text-black">
+            <div class="py-2 px-4 text-sm rounded-lg" hx-get="/alarm_9" hx-trigger="load, every 2s"></div>
+        </div>
+    </div>
+</body>
+    <script>
+        const backGround = document.getElementById('backGround');
+        const bwGround = document.getElementById('bwGround');
+        const moodBtn = document.getElementById('styleSwich');
+        const Icon = document.getElementById('modeIcon');
+
+        const alarmCount = 10;
+
+        function updateAlarmStyle(index, isDarkMode) {
+            const boxOutLine = document.getElementById(`alarm${index}Box`);
+
+            const elements = [boxOutLine,boxOutLine,boxOutLine];
+            const lightModeClasses = ['ring-green-600','text-black','bg-white'];
+            const darkModeClasses = ['ring-red-600','text-white','bg-gray-600'];
+
+            for (let i = 0; i < elements.length; i++) {
+                const element = elements[i];
+                const classesToRemove = isDarkMode ? lightModeClasses[i] : darkModeClasses[i];
+                const classesToAdd = isDarkMode ? darkModeClasses[i] : lightModeClasses[i];
+
+                element.classList.remove(classesToRemove);
+                element.classList.add(classesToAdd);
+            }
+        }
+
+        moodBtn.addEventListener('click', () => {
+            const isDarkMode = moodBtn.classList.contains('bg-blue-500');
+
+            backGround.classList.replace(isDarkMode ? 'bg-white' : 'bg-gray-400', isDarkMode ? 'bg-gray-400' : 'bg-white');
+            bwGround.classList.replace(isDarkMode ? 'bg-white' : 'bg-gray-600', isDarkMode ? 'bg-gray-600' : 'bg-white');
+            moodBtn.classList.replace(isDarkMode ? 'bg-blue-500' : 'bg-green-500', isDarkMode ? 'bg-green-500' : 'bg-blue-500');
+            moodBtn.classList.replace(isDarkMode ? 'text-white' : 'text-black', isDarkMode ? 'text-black' : 'text-white');
+            Icon.textContent = isDarkMode ? 'bedtime' : 'wb_sunny';
+
+            for (let i = 0; i <= alarmCount; i++) {
+                updateAlarmStyle(i, isDarkMode);
+            }
+        });
+    </script>
+</html>
