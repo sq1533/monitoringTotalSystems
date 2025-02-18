@@ -140,7 +140,7 @@ def main():
         yesterday = now - datetime.timedelta(days=1)
         yesterdayAlarmPath = os.path.join(os.path.dirname(__file__),"..","DB","Alarm",f"worksAlarm_{yesterday.strftime("%y%m%d")}.json")
         yesterdayData = pd.read_json(yesterdayAlarmPath,orient='records',dtype={'Alarm':str,'date':str,'check':str})
-        todayData = yesterdayData[yesterdayData['date'].str.contains(yesterday.strftime("%m%d"),na=False)]
+        todayData = yesterdayData[yesterdayData['date'].str.contains(yesterday.strftime("%m/%d"),na=False)]
         todayData.to_json(todayAlarmPath,orient='records',force_ascii=False,indent=4)
 
 if __name__ == "__main__":
