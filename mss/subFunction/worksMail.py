@@ -3,7 +3,7 @@ import pandas as pd
 import time
 import requests
 
-from ...loadPath import loginInfoPath, triggerPath, mailTriggerPath
+from monitoringTotalSystems.loadPath import loginInfoPath, triggerPath, mailTriggerPath
 
 def ezMail(id:str,pw:str,botAPI:str,botID:str) -> None:
     """

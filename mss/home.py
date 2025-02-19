@@ -6,7 +6,7 @@ import clipboard
 import streamlit as st
 import streamlit.components.v1 as components
 
-from ..loadPath import loginInfoPath, midInfoPath, hotLineTriggerPath, otherMattersPath
+from monitoringTotalSystems.loadPath import loginInfoPath, midInfoPath, hotLineTriggerPath, otherMattersPath
 
 #streamlit UI css변경
 st.markdown(

@@ -4,7 +4,7 @@ import requests
 import time
 from datetime import datetime
 
-from ..loadPath import loginInfoPath, restDayPath, reMindPath
+from monitoringTotalSystems.loadPath import loginInfoPath, restDayPath, reMindPath
 
 with open(loginInfoPath, 'r', encoding='utf-8') as f:
     login_info = json.load(f)

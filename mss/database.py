@@ -1,6 +1,6 @@
 import pandas as pd
 
-from ..loadPath import triggerPath, midInfoPath, mailTriggerPath
+from monitoringTotalSystems.loadPath import triggerPath, midInfoPath, mailTriggerPath
 
 def cre(data):
     """

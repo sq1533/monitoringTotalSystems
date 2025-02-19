@@ -2,7 +2,7 @@ import pandas as pd
 import time
 import pyautogui
 
-from ...loadPath import triggerPath, hotLineTriggerPath
+from monitoringTotalSystems.loadPath import triggerPath, hotLineTriggerPath
 
 #Global 대기시간 설정
 pyautogui.PAUSE = 0.5

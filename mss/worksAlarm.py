@@ -10,7 +10,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.common.action_chains import ActionChains
 from bs4 import BeautifulSoup
 
-from ..loadPath import loginInfoPath
+from monitoringTotalSystems.loadPath import loginInfoPath
 
 #재시작 프로토콜
 def restart_script():

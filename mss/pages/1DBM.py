@@ -3,7 +3,7 @@ import pandas as pd
 import requests
 import streamlit as st
 
-from ...loadPath import midInfoPath
+from monitoringTotalSystems.loadPath import midInfoPath
 
 st.markdown(
 """

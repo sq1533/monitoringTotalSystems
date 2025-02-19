@@ -5,7 +5,7 @@ from jinja2 import Template
 from selenium import webdriver
 import streamlit as st
 
-from ...loadPath import loginInfoPath, acountInfoPath, sendFaxPath, html3, fax8htmlPath, fax8himagePath
+from monitoringTotalSystems.loadPath import loginInfoPath, acountInfoPath, sendFaxPath, html3, fax8htmlPath, fax8himagePath
 
 # 페이지 레이아웃 설정
 st.markdown(
@@ -22,7 +22,6 @@ st.markdown(
     }
 </style>
 """,unsafe_allow_html=True,)
-st.set_page_config(page_title="010PAY",initial_sidebar_state="expanded")
 st.sidebar.title("010PAY")
 
 with open(loginInfoPath, 'r', encoding='utf-8') as f:
@@ -250,8 +249,8 @@ if savebtn.button("저장"):
                         send=sendbank
                         )
 
-    htmlOutput = fax8htmlPath + f"\{sendbank}_{cost1}_{datetime.now().microsecond}.html"
-    imgOutput = fax8himagePath + f"\{sendbank}_{cost1}_{datetime.now().microsecond}.jpg"
+    htmlOutput = fax8htmlPath + "\\" + f"{sendbank}_{cost1}_{datetime.now().microsecond}.html"
+    imgOutput = fax8himagePath + "\\" + f"{sendbank}_{cost1}_{datetime.now().microsecond}.png"
 
     with open(htmlOutput,"w",encoding="UTF-8") as html:
         html.write(results)

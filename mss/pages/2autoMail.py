@@ -5,7 +5,7 @@ import requests
 import streamlit as st
 from datetime import datetime
 
-from ...loadPath import mailInfoPath
+from monitoringTotalSystems.loadPath import mailInfoPath
 
 st.markdown(
 """
