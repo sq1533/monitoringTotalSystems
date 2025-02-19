@@ -8,8 +8,7 @@ from fastapi.templating import Jinja2Templates
 from pydantic import BaseModel
 
 import database
-
-midInfoPath = os.path.join(os.path.dirname(__file__),"..","DB","monitoring","midInfo.json")
+from ..loadPath import midInfoPath
 
 #AI_MON simple 알람 타켓
 target_simple = [':거래없음',':거래감소',':거래(성공건)없음',':거래급증',':거래(오류)급증',':성공율 하락',':비정상환불',':비정상취소']

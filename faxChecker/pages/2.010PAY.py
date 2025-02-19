@@ -1,10 +1,11 @@
-import os
 import json
 from datetime import datetime
 import requests
 from jinja2 import Template
 from selenium import webdriver
 import streamlit as st
+
+from ...loadPath import loginInfoPath, acountInfoPath, sendFaxPath, html3, fax8htmlPath, fax8himagePath
 
 # 페이지 레이아웃 설정
 st.markdown(
@@ -24,19 +25,13 @@ st.markdown(
 st.set_page_config(page_title="010PAY",initial_sidebar_state="expanded")
 st.sidebar.title("010PAY")
 
-#DB정보 호출 및 정제
-loginInfoPath = os.path.join(os.path.dirname(__file__),"..","..","DB","loginInfo.json")
-acountInfoPath = os.path.join(os.path.dirname(__file__),"..","..","DB","fax","acountInfo.json")
-sendFaxPath = os.path.join(os.path.dirname(__file__),"..","..","DB","fax","sendFax.json")
-htmlPath = os.path.join(os.path.dirname(__file__),"..","..","DB","fax","htmlForm","010PAY.html")
-
 with open(loginInfoPath, 'r', encoding='utf-8') as f:
     teleB = json.load(f)
 with open(acountInfoPath,"r",encoding="UTF-8") as j:
     ACOUNT = json.load(j)
 with open(sendFaxPath,"r",encoding="UTF-8") as j:
     faxInfo = json.load(j)
-with open(htmlPath,"r",encoding="UTF-8") as html:
+with open(html3,"r",encoding="UTF-8") as html:
     html = html.read()
 
 teleBot = teleB['8faxbot']
@@ -254,8 +249,9 @@ if savebtn.button("저장"):
                         antherInfo=antherInfo,
                         send=sendbank
                         )
-    htmlOutput = os.path.join(os.path.dirname(__file__),"..","..","DB","fax","fax8html",f"{sendbank}_{cost1}_{datetime.now().microsecond}.html")
-    imgOutput = os.path.join(os.path.dirname(__file__),"..","..","DB","fax","fax8image",f"{sendbank}_{cost1}_{datetime.now().microsecond}.jpg")
+
+    htmlOutput = fax8htmlPath + f"\{sendbank}_{cost1}_{datetime.now().microsecond}.html"
+    imgOutput = fax8himagePath + f"\{sendbank}_{cost1}_{datetime.now().microsecond}.jpg"
 
     with open(htmlOutput,"w",encoding="UTF-8") as html:
         html.write(results)

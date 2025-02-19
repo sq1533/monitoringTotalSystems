@@ -1,13 +1,9 @@
-import os
 import json
 import pandas as pd
 import time
 import requests
 
-#메일안내 로그인 값, 메일 구동 trigger, 메일 입력값 trigger 상대경로 설정
-loginPath = os.path.join(os.path.dirname(os.path.abspath(__file__)),"..","..","DB","loginInfo.json")
-triggerPath = os.path.join(os.path.dirname(os.path.abspath(__file__)),"..","..","DB","trigger.json")
-mailACCPath = os.path.join(os.path.dirname(os.path.abspath(__file__)),"..","..","DB","monitoring","mailTrigger.json")
+from ...loadPath import loginInfoPath, triggerPath, mailTriggerPath
 
 def ezMail(id:str,pw:str,botAPI:str,botID:str) -> None:
     """
@@ -51,7 +47,7 @@ def ezMail(id:str,pw:str,botAPI:str,botID:str) -> None:
 
     while True:
         for i in range(800):
-            mail = pd.read_json(mailACCPath,orient='records',dtype={"passnumber":str,"addr":str,"subaddr":str,"title":str,"main":str})
+            mail = pd.read_json(mailTriggerPath,orient='records',dtype={"passnumber":str,"addr":str,"subaddr":str,"title":str,"main":str})
             passingnumber = mail['passnumber'].tolist()[-1]
             #인증번호 검증
             if passingnumber.isdigit():
@@ -123,14 +119,14 @@ def ezMail(id:str,pw:str,botAPI:str,botID:str) -> None:
                 pass
 
         mailReset = {"passnumber":"test","addr":"test_a","subaddr":"test_s","title":"test_t","main":"test_m"}
-        pd.DataFrame(mailReset,index=[0]).to_json(mailACCPath,orient='records',force_ascii=False,indent=4)
+        pd.DataFrame(mailReset,index=[0]).to_json(mailTriggerPath,orient='records',force_ascii=False,indent=4)
         requests.get(f"https://api.telegram.org/bot{botAPI}/sendMessage?chat_id={botID}&text=초기화 완료")
         break
 
 if __name__ == "__main__":
     while True:
         #로그인 및 시작 정보 확인
-        with open(loginPath,'r',encoding='utf-8') as f:
+        with open(loginInfoPath,'r',encoding='utf-8') as f:
             loginInfo = json.load(f)
 
         enMail = pd.Series(loginInfo["enMail"])

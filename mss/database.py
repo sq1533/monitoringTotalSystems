@@ -1,10 +1,6 @@
-import os
 import pandas as pd
 
-#DB 데이터 상대경로 설정
-triggerPath = os.path.join(os.path.dirname(os.path.abspath(__file__)),"..","..","DB","tigger.json")
-midInfoPath = os.path.join(os.path.dirname(__file__),"..","DB","monitering","midInfo.json")
-mailACCPath = os.path.join(os.path.dirname(__file__),"..","DB","monitering","mailInfo.json")
+from ..loadPath import triggerPath, midInfoPath, mailTriggerPath
 
 def cre(data):
     """
@@ -82,4 +78,4 @@ def mail(data):
         "main":data["main"]
         }
     PN = pd.DataFrame(email,index=[0])
-    return PN.to_json(mailACCPath,orient='records',force_ascii=False,indent=4)
+    return PN.to_json(mailTriggerPath,orient='records',force_ascii=False,indent=4)

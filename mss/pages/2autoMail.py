@@ -1,10 +1,11 @@
-import os
 import json
 import pandas as pd
 import time
 import requests
 import streamlit as st
 from datetime import datetime
+
+from ...loadPath import mailInfoPath
 
 st.markdown(
 """
@@ -32,10 +33,6 @@ def triggerE():
 send = "http://127.0.0.1:8501/email"
 def sendMail():
     requests.post(send,json.dumps(email))
-
-#DB데이터 불러오기
-triggerPath = os.path.join(os.path.dirname(os.path.abspath(__file__)),"..","..","DB","tigger.json")
-mailInfoPath = os.path.join(os.path.dirname(os.path.abspath(__file__)),"..","..","DB","monitoring","mailInfo.json")
 
 with open(mailInfoPath, 'r', encoding='utf-8') as f:
     mailInfo = json.load(f)

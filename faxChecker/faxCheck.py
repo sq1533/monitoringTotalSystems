@@ -10,20 +10,20 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.common.action_chains import ActionChains
 from bs4 import BeautifulSoup
 
+from ..loadPath import loginInfoPath, faxInfoPath
+
 #재시작 프로토콜
 def restart_script():
     driver.quit()
     subprocess.Popen([sys.executable] + sys.argv)
     sys.exit()
 
-#로그인 및 fax번호 정보 상대위치 설정
-loginPath = os.path.join(os.path.dirname(__file__),"..","DB","loginInfo.json")
-faxInfoPath = os.path.join(os.path.dirname(__file__),"..","DB","fax","faxInfo.json")
 #Json파일 읽기
-with open(loginPath, 'r', encoding='utf-8') as f:
+with open(loginInfoPath, 'r', encoding='utf-8') as f:
     login_info = json.load(f)
 with open(faxInfoPath, 'r',encoding='utf-8') as f:
     fax_info = json.load(f)
+
 #json파일 필요값 Series로 불러오기
 works_login = pd.Series(login_info['worksMail'])
 bot_info = pd.Series(login_info['nFaxbot'])

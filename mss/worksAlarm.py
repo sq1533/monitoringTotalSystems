@@ -10,17 +10,16 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.common.action_chains import ActionChains
 from bs4 import BeautifulSoup
 
+from ..loadPath import loginInfoPath
+
 #재시작 프로토콜
 def restart_script():
     driver.quit()
     subprocess.Popen([sys.executable] + sys.argv)
     sys.exit()
 
-#DB데이터 상대위치 설정
-loginPath = os.path.join(os.path.dirname(__file__),"..","DB","loginInfo.json")
-
 #JSON파일 읽기
-with open(loginPath,'r',encoding="UTF-8") as f:
+with open(loginInfoPath,'r',encoding="UTF-8") as f:
     login = json.load(f)
 
 #JSON파일 중 필요부분 Serise 형식 변경

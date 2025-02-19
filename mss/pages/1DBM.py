@@ -1,8 +1,9 @@
-import os
 import json
 import pandas as pd
 import requests
 import streamlit as st
+
+from ...loadPath import midInfoPath
 
 st.markdown(
 """
@@ -18,9 +19,6 @@ st.markdown(
     }
 </style>
 """,unsafe_allow_html=True,)
-
-#DB midInfo.json파일 상대위치 설정
-midInfoPath = os.path.join(os.path.dirname(os.path.abspath(__file__)),"..","..","DB","monitoring","midInfo.json")
 
 #판다스 DataFrame으로 호출
 midInfo = pd.read_json(midInfoPath,orient="records",dtype={"mid":str,"info":str})

@@ -1,4 +1,3 @@
-import os
 import sys
 import subprocess
 import json
@@ -11,19 +10,16 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.common.action_chains import ActionChains
 from bs4 import BeautifulSoup
 
+from ..loadPath import loginInfoPath, restDayPath, rmMailPath
+
 #재시작 프로토콜
 def restart_script():
     driver.quit()
     subprocess.Popen([sys.executable] + sys.argv)
     sys.exit()
 
-#데이터 로드
-loginPath = os.path.join(os.path.dirname(__file__),"..","DB","loginInfo.json")
-restDayPath = os.path.join(os.path.dirname(__file__),"..","DB","restDay.json")
-rmMailPath = os.path.join(os.path.dirname(__file__),"..","DB","rm","rmMail.json")
-
 #JSON파일 읽어오기
-with open(loginPath, 'r', encoding='utf-8') as f:
+with open(loginInfoPath, 'r', encoding='utf-8') as f:
     login_info = json.load(f)
 with open(restDayPath,"r") as f:
     restday = json.load(f)

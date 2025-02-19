@@ -1,4 +1,3 @@
-import os
 import requests
 import json
 import pandas as pd
@@ -6,6 +5,8 @@ import time
 import clipboard
 import streamlit as st
 import streamlit.components.v1 as components
+
+from ..loadPath import loginInfoPath, midInfoPath, hotLineTriggerPath, otherMattersPath
 
 #streamlit UI css변경
 st.markdown(
@@ -28,17 +29,10 @@ hotline = "http://127.0.0.1:8501/hotline"
 def hotLine():
     requests.post(hotline)
 
-#데이터 불러오기
-loginPath = os.path.join(os.path.dirname(__file__),"..","DB","loginInfo.json")
-triggerPath = os.path.join(os.path.dirname(__file__),"..","DB","trigger.json")
-midInfoPath = os.path.join(os.path.dirname(__file__),"..","DB","monitoring","midInfo.json")
-hotLinePath = os.path.join(os.path.dirname(__file__),"..","DB","monitoring","hotLineTrigger.json")
-sideBarPath = os.path.join(os.path.dirname(__file__),"..","DB","monitoring","otherMatters.json")
-
 #호출 json데이터 읽기
-with open(loginPath, 'r', encoding="UTF-8") as f:
+with open(loginInfoPath, 'r', encoding="UTF-8") as f:
     login_DB = json.load(f)
-with open(sideBarPath,'r',encoding="UTF-8") as f:
+with open(otherMattersPath,'r',encoding="UTF-8") as f:
     order = json.load(f)
 
 #streamlit components을 통한 웹서버 호출 IP 설정
@@ -84,7 +78,7 @@ def H_page() -> None:
                 st.error("공유될 원천사 정보 없음")
             else:
                 clipboard.copy(fixed)
-                pd.DataFrame(line).to_json(hotLinePath,orient='columns',force_ascii=False,indent=4)
+                pd.DataFrame(line).to_json(hotLineTriggerPath,orient='columns',force_ascii=False,indent=4)
                 hotLine()
 
                 with st.spinner('구동중입니다.'):
@@ -106,7 +100,7 @@ def H_page() -> None:
                 st.error("공유될 원천사 정보 없음")
             else:
                 clipboard.copy(f"{unfixed}")
-                pd.DataFrame(coor).to_json(hotLinePath,orient='columns',force_ascii=False,indent=4)
+                pd.DataFrame(coor).to_json(hotLineTriggerPath,orient='columns',force_ascii=False,indent=4)
                 hotLine()
                 with st.spinner('구동중입니다.'):
                     time.sleep(4)

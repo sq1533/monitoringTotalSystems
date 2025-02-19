@@ -1,16 +1,12 @@
-import os
 import json
 import pandas as pd
 import requests
 import time
 from datetime import datetime
 
-#데이터 호출
-loginPath = os.path.join(os.path.dirname(__file__),"..","DB","loginInfo.json")
-restDayPath = os.path.join(os.path.dirname(__file__),"..","DB","restDay.json")
-reMindPath = os.path.join(os.path.dirname(__file__),"..","DB","fax","reMind.json")
+from ..loadPath import loginInfoPath, restDayPath, reMindPath
 
-with open(loginPath, 'r', encoding='utf-8') as f:
+with open(loginInfoPath, 'r', encoding='utf-8') as f:
     login_info = json.load(f)
 with open(restDayPath,"r") as f:
     restday = json.load(f)

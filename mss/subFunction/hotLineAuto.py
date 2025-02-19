@@ -1,11 +1,8 @@
-import os
 import pandas as pd
 import time
 import pyautogui
 
-#핫라인 구동 trigger 및 핫라인 구분자 trigger 상대경로 설정
-triggerPath = os.path.join(os.path.dirname(os.path.abspath(__file__)),"..","..","DB","trigger.json")
-hotLinePath = os.path.join(os.path.dirname(os.path.abspath(__file__)),"..","..","DB","monitoring","hotLineTrigger.json")
+from ...loadPath import triggerPath, hotLineTriggerPath
 
 #Global 대기시간 설정
 pyautogui.PAUSE = 0.5
@@ -32,7 +29,7 @@ if __name__ == "__main__":
         time.sleep(0.2)
         startPoint = pd.read_json(triggerPath,orient='records')
         if startPoint['hotline'].tolist()[0] == 'start':
-            pressDown = pd.read_json(hotLinePath)[0].values.tolist()
+            pressDown = pd.read_json(hotLineTriggerPath)[0].values.tolist()
             for i in pressDown:
                 hotLine(i)
             pd.DataFrame({"coochip":"end","enMail":"end","hotline":"end"},index=[0]).to_json(triggerPath,orient='records',force_ascii=False,indent=4)
