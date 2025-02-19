@@ -100,7 +100,7 @@ def alarm_1(number:int):
             """
     return HTMLResponse(content=html)
 
-@app.post("/alarmCheck")
+@app.post("/alarmCheck{number}")
 async def result(number:int,request:Request):
     """
     form > button 알람확인 유무 체크 값 post
@@ -109,14 +109,26 @@ async def result(number:int,request:Request):
     변경된 DataFrame 기존 json에 덮어쓰기
     """
     data = await request.form()
-    #알람 처리
-    alarmPath = os.path.join(os.path.dirname(__file__),"..","DB","Alarm",f"worksAlarm_{datetime.date.today().strftime("%y%m%d")}.json")
+    alarmPath = os.path.join(os.path.dirname(__file__),"Alarm",f"worksAlarm_{datetime.date.today().strftime("%y%m%d")}.json")
     alarm = pd.read_json(alarmPath,orient="records",dtype={"Alarm":str,"date":str,"check":str})
     alarm.loc[number]['check'] = data["results"]
-    #처리된 알람 그룹화 및 정렬
     grouping = alarm.groupby('check')
     alarmResults = grouping.apply(lambda x: x.sort_values(by='date',ascending=False)).reset_index(drop=True)
+    alarmResults.to_json(alarmPath,orient='records',force_ascii=False,indent=4)
+    return HTMLResponse(content="제출 완료")
 
+@app.post("/allCheck")
+async def result(request:Request):
+    """
+    [check]컬럼값 post 값으로 모두 변경
+    check컬럼 group화 및 각 group의 date컬럼 내림차순 진행
+    변경된 DataFrame 기존 json에 덮어쓰기
+    """
+    data = await request.form()
+    alarmPath = os.path.join(os.path.dirname(__file__),"Alarm",f"worksAlarm_{datetime.date.today().strftime("%y%m%d")}.json")
+    alarm = pd.read_json(alarmPath,orient="records",dtype={"Alarm":str,"date":str,"check":str})
+    alarm["check"] = alarm["check"].replace("nonCheck",data["check"])
+    alarmResults = alarm.sort_values(by='date',ascending=False).reset_index(drop=True)
     alarmResults.to_json(alarmPath,orient='records',force_ascii=False,indent=4)
     return HTMLResponse(content="제출 완료")
 
