@@ -109,7 +109,7 @@ async def result(number:int,request:Request):
     변경된 DataFrame 기존 json에 덮어쓰기
     """
     data = await request.form()
-    alarmPath = os.path.join(os.path.dirname(__file__),"Alarm",f"worksAlarm_{datetime.date.today().strftime("%y%m%d")}.json")
+    alarmPath = os.path.join(os.path.dirname(__file__),"..","DB","Alarm",f"worksAlarm_{datetime.date.today().strftime("%y%m%d")}.json")
     alarm = pd.read_json(alarmPath,orient="records",dtype={"Alarm":str,"date":str,"check":str})
     alarm.loc[number]['check'] = data["results"]
     grouping = alarm.groupby('check')
@@ -125,7 +125,7 @@ async def result(request:Request):
     변경된 DataFrame 기존 json에 덮어쓰기
     """
     data = await request.form()
-    alarmPath = os.path.join(os.path.dirname(__file__),"Alarm",f"worksAlarm_{datetime.date.today().strftime("%y%m%d")}.json")
+    alarmPath = os.path.join(os.path.dirname(__file__),"..","DB","Alarm",f"worksAlarm_{datetime.date.today().strftime("%y%m%d")}.json")
     alarm = pd.read_json(alarmPath,orient="records",dtype={"Alarm":str,"date":str,"check":str})
     alarm["check"] = alarm["check"].replace("nonCheck",data["check"])
     alarmResults = alarm.sort_values(by='date',ascending=False).reset_index(drop=True)
