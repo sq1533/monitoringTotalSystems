@@ -25,7 +25,7 @@ midInfo = pd.read_json(midInfoPath,orient="records",dtype={"mid":str,"info":str}
 midList = midInfo['mid'].tolist()
 
 #데이터 생성 및 수정 fast API
-url = "http://127.0.0.1:8501/mk_info"
+url = "http://127.0.0.1:8502/mk_info"
 def create():
     requests.post(url,json.dumps(mk_info))
 
@@ -33,7 +33,7 @@ def change():
     requests.put(url,json.dumps(mk_ch))
 
 #데이터 삭제 fast API
-url_d = "http://127.0.0.1:8501/mk_info_d"
+url_d = "http://127.0.0.1:8502/mk_info_d"
 def delete():
     requests.post(url_d,json.dumps(mk_d))
 

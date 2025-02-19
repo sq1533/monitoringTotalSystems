@@ -25,7 +25,7 @@ st.markdown(
 """,unsafe_allow_html=True,)
 
 #핫라인 구동 trigger 실행
-hotline = "http://127.0.0.1:8501/hotline"
+hotline = "http://127.0.0.1:8502/hotline"
 def hotLine():
     requests.post(hotline)
 

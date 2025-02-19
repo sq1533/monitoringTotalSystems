@@ -22,15 +22,15 @@ st.markdown(
 </style>
 """,unsafe_allow_html=True,)
 
-trigger1 = "http://127.0.0.1:8501/triggerc"
+trigger1 = "http://127.0.0.1:8502/triggerc"
 def triggerC():
     requests.post(trigger1)
 
-trigger2 = "http://127.0.0.1:8501/triggere"
+trigger2 = "http://127.0.0.1:8502/triggere"
 def triggerE():
     requests.post(trigger2)
 
-send = "http://127.0.0.1:8501/email"
+send = "http://127.0.0.1:8502/email"
 def sendMail():
     requests.post(send,json.dumps(email))
 
