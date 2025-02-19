@@ -100,7 +100,7 @@ def alarm_1(number:int):
             """
     return HTMLResponse(content=html)
 
-@app.post("/alarmCheck{number}")
+@app.post("/alarmCheck")
 async def result(number:int,request:Request):
     """
     form > button 알람확인 유무 체크 값 post
