@@ -128,16 +128,16 @@ def main():
             autoAlarm.newAlarm(driver,todayAlarmPath)
             if (time.time()-start_time) >= max_runtime:
                 time.sleep(1)
-                restart_script()
                 requests.get(f"https://api.telegram.org/bot{bot_HC['token']}/sendMessage?chat_id={bot_HC['chatId']}&text=알람캡쳐 스크립트_재시작")
+                restart_script()
             else:
                 pass
         except Exception as ec:
             print(ec)
             driver.quit()
             time.sleep(1)
-            restart_script()
             requests.get(f"https://api.telegram.org/bot{bot_HC['token']}/sendMessage?chat_id={bot_HC['chatId']}&text=오류,알람캡쳐 스크립트_재시작")
+            restart_script()
 
     else:
         yesterday = now - datetime.timedelta(days=1)
