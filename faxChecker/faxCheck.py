@@ -106,14 +106,14 @@ def main():
         newFax(driver)
         if (time.time()-start_time) >= max_runtime:
             time.sleep(1)
-            requests.get(f"https://api.telegram.org/bot{bot_HC['token']}/sendMessage?chat_id={bot_HC['chatId']}&text=스크립트_재시작")
+            requests.get(f"https://api.telegram.org/bot{bot_HC['token']}/sendMessage?chat_id={bot_HC['chatId']}&text=메일캡쳐 스크립트_재시작")
             restart_script()
         else:
             pass
     except Exception as ec:
         print(ec)
         time.sleep(1)
-        requests.get(f"https://api.telegram.org/bot{bot_HC['token']}/sendMessage?chat_id={bot_HC['chatId']}&text=스크립트_재시작")
+        requests.get(f"https://api.telegram.org/bot{bot_HC['token']}/sendMessage?chat_id={bot_HC['chatId']}&text=오류, 메일캡쳐 스크립트_재시작")
         restart_script()
 
 if __name__ == "__main__":

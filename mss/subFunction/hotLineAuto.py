@@ -9,6 +9,8 @@ pyautogui.PAUSE = 0.5
 
 #핫라인 전파
 def hotLine(pressKey=int) -> None:
+    #안전 장치 활성화
+    pyautogui.FAILSAFE = False
     """
     핫라인 전파를 위한 카카오톡 핸들링
     핫라인 즐겨찾기 등록 및 제일 상단 핫라인 좌표값 입력
@@ -23,6 +25,8 @@ def hotLine(pressKey=int) -> None:
     pyautogui.hotkey('ctrl','v')
     pyautogui.press("enter")
     pyautogui.press("esc")
+    #안전 장치 활성화
+    pyautogui.FAILSAFE = True
 
 if __name__ == "__main__":
     while True:

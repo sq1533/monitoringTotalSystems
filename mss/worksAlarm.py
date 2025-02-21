@@ -1,6 +1,7 @@
 import os
 import sys
 import subprocess
+import requests
 import json
 import pandas as pd
 import time
@@ -24,6 +25,7 @@ with open(loginInfoPath,'r',encoding="UTF-8") as f:
 
 #JSON파일 중 필요부분 Serise 형식 변경
 works_login = pd.Series(login['works'])
+bot_HC = pd.Series(login['nFaxbot_hc'])
 
 class category:
     """
@@ -127,6 +129,7 @@ def main():
             if (time.time()-start_time) >= max_runtime:
                 time.sleep(1)
                 restart_script()
+                requests.get(f"https://api.telegram.org/bot{bot_HC['token']}/sendMessage?chat_id={bot_HC['chatId']}&text=알람캡쳐 스크립트_재시작")
             else:
                 pass
         except Exception as ec:
@@ -134,6 +137,7 @@ def main():
             driver.quit()
             time.sleep(1)
             restart_script()
+            requests.get(f"https://api.telegram.org/bot{bot_HC['token']}/sendMessage?chat_id={bot_HC['chatId']}&text=오류,알람캡쳐 스크립트_재시작")
 
     else:
         yesterday = now - datetime.timedelta(days=1)
