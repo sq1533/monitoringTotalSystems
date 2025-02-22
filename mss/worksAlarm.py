@@ -34,11 +34,6 @@ class category:
     호출된 알람 데이터와 기존 Alarm.json에 저장된 알람과 비교(신규 알람 확인)
     신규알람 발생시 Alarm.json과 병합하여 to_json실행, 데이터 덮어쓰기
     """
-    def __init__(self):
-        """
-        스크랩을 위한 AI_MON 알람방 구분값 변수 설정
-        """
-        self.roomName = ["<AI_MON:PG>","<AI_MON:VAN>","<AI_MON:성공율하락>","<AI_MON:거래감소>","<AI_MON:Error>","<AI_MON:거래급증>"]
 
     def getHome(self,page) -> None:
         """
@@ -69,14 +64,14 @@ class category:
         리스트 파일 set() 변경 및 blink, Alarm.json 차집합 > 차집합데이터 Alarm.json 병합 및 덮어쓰기
         """
         blink = []
+        findroom = page.find_elements(By.CLASS_NAME,'item_chat')
 
-        for rooms in self.roomName:
-            page.find_element(By.XPATH,f'//strong[@title="{rooms}"]').click()
+        for rooms in findroom[0:6]:
+            rooms.click()
             time.sleep(2)
             soup = BeautifulSoup(page.page_source,'html.parser')
             alarms = soup.find_all('div',class_="msg_area")
             lens = alarms.__len__()
-
             for div in range(lens-1,int(lens/2),-1):
                 alarmText = alarms[div].find('div',class_="msg_box").getText().replace('●','<br>●')
                 if '◎' in alarmText:
