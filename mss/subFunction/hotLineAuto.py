@@ -6,7 +6,7 @@ from monitoringTotalSystems.loadPath import triggerPath, hotLineTriggerPath
 
 #Global 대기시간 설정
 pyautogui.PAUSE = 0.5
-#안전 장치 활성화
+#안전 장치 비활성화
 pyautogui.FAILSAFE = False
 
 #핫라인 전파
