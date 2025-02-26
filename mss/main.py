@@ -148,12 +148,12 @@ class mail(BaseModel):
     main : str
 
 #생성
-@app.post("/mk_info")
+@app.post("/mk_info_c")
 async def create(response: mk):
     database.cre(dict(response))
 
 #수정
-@app.put("/mk_info")
+@app.post("/mk_info_p")
 async def change(response: mk):
     database.put(dict(response))
 

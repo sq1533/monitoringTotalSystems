@@ -24,13 +24,14 @@ st.markdown(
 midInfo = pd.read_json(midInfoPath,orient="records",dtype={"mid":str,"info":str})
 midList = midInfo['mid'].tolist()
 
-#데이터 생성 및 수정 fast API
-url = "http://127.0.0.1:8502/mk_info"
+#데이터 생성 fast API
+url_c = "http://127.0.0.1:8502/mk_info_c"
 def create():
-    requests.post(url,json.dumps(mk_info))
-
+    requests.post(url_c,json.dumps(mk_info))
+##데이터 수정 fast API
+url_p = "http://127.0.0.1:8502/mk_info_p"
 def change():
-    requests.put(url,json.dumps(mk_ch))
+    requests.post(url_p,json.dumps(mk_ch))
 
 #데이터 삭제 fast API
 url_d = "http://127.0.0.1:8502/mk_info_d"
