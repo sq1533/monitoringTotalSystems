@@ -5,7 +5,7 @@ import pyautogui
 from monitoringTotalSystems.loadPath import triggerPath, hotLineTriggerPath
 
 #Global 대기시간 설정
-pyautogui.PAUSE = 0.5
+pyautogui.PAUSE = 0.2
 #안전 장치 비활성화
 pyautogui.FAILSAFE = False
 
@@ -17,7 +17,6 @@ def hotLine(pressKey=int) -> None:
     키 down을 이용한 핫라인 변경
     키 down횟수는 함수 매개변수
     """
-    time.sleep(0.5)
     pyautogui.click(x=20,y=20,clicks=1,button="left")
     pyautogui.click(x=400,y=215,clicks=1,button="left")
     pyautogui.press("down",presses=pressKey)
