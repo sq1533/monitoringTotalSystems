@@ -14,7 +14,9 @@ MonitoringTatalSystems
 - __init()__.py
 <br>
 - loadPath.py&nbsp;&nbsp;&nbsp;(DB 상대경로 객체 생성)
+<head>
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
 <div class="col-start-1 col-end-5 text-xl text-center grid grid-cols-7 items-center">
     <p class="col-start-1 col-end-8 font-bold text-left">구조</p>
     <div class="text-green-600"><i class="material-symbols-outlined"style="font-size:100px;">sdk</i></div>
